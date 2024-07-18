@@ -1,0 +1,44 @@
+version: '2.4'
+
+services:
+
+  app:
+    container_name: bond-service-interview-assignment-app
+    hostname: bond-service-interview-assignment-app
+    image: bond-service-interview-assignment-app
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - "..:/opt/bond-service-interview-assignment"
+    environment:
+      DB_HOST: "bond-service-interview-assignment-db"
+      DB_PORT: "3306"
+      DJANGO_SUPERUSER_USERNAME: "admin"
+      DJANGO_SUPERUSER_PASSWORD: "1122"
+      DJANGO_SUPERUSER_EMAIL: "name@gmail.com"
+    ports:
+      - "8088:8088"
+
+  db:
+    container_name: bond-service-interview-assignment-db
+    hostname: bond-service-interview-assignment-db
+    image: bond-service-interview-assignment-db
+    restart: always
+    volumes:
+      - "db_data:/var/lib/mysql"
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+
+  webpack:
+    container_name: bond-service-interview-assignment-webpack
+    hostname: bond-service-interview-assignment-webpack
+    image: bond-service-interview-assignment-webpack
+    restart: always
+    volumes:
+      - "..:/opt/bond-service-interview-assignment"
+
+volumes:
+  db_data:

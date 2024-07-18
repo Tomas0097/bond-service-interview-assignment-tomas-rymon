@@ -1,0 +1,16 @@
+{
+  "name": "bond-service-interview-assignment-client",
+  "description": "",
+  "version": "1.0.0",
+  "main": "src/web/static/src/js/main.js",
+  "scripts": {
+    "build": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tomas Rymon",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "5.93.0",
+    "webpack-cli": "5.1.4"
+  }
+}

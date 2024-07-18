@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Pycharm files
+.idea
+
+# VSCode files
+.vscode
+.devcontainer
+
+# MacOS files
+.DS_Store
+
+# NodeJS
+node_modules/
+
+# Compiled javascript files
+src/web/static/dist/js

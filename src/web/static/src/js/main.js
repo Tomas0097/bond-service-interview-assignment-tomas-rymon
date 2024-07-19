@@ -15,7 +15,8 @@ class BondServiceInterviewAssignmentClient {
 
 const bondServiceInterviewAssignmentClient = new BondServiceInterviewAssignmentClient();
 
-document.getElementById('login-form').addEventListener('submit', function(event) {
+const loginForm = document.getElementById('login-form');
+loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
     const username = loginForm.querySelector('#username').value;
     const password = loginForm.querySelector('#password').value;

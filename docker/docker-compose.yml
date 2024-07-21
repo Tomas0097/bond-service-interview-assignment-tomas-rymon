@@ -32,13 +32,5 @@ services:
     ports:
       - "3306:3306"
 
-  webpack:
-    container_name: bond-service-interview-assignment-webpack
-    hostname: bond-service-interview-assignment-webpack
-    image: bond-service-interview-assignment-webpack
-    restart: always
-    volumes:
-      - "..:/opt/bond-service-interview-assignment"
-
 volumes:
   db_data:

@@ -10,9 +10,3 @@ __pycache__/
 
 # MacOS files
 .DS_Store
-
-# NodeJS
-node_modules/
-
-# Compiled javascript files
-src/web/static/dist/js

@@ -12,7 +12,9 @@ class BondServiceInterviewAssignmentClient {
         })
     }
 
-    submitLoginForm() {
+    submitLoginForm(event) {
+        event.preventDefault();
+
         const loginForm = document.getElementById('login-form');
         const inputUsername = loginForm.querySelector('input[name="username"]').value;
         const inputPassword = loginForm.querySelector('input[name="password"]').value;

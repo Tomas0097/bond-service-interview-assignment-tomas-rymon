@@ -6,9 +6,9 @@
 
     <form id="login-form">
         <label for="username">Name:</label><br>
-        <input type="text" id="username" name="username"><br><br>
+        <input type="text" name="username"><br><br>
         <label for="password">Password:</label><br>
-        <input type="text" id="password" name="password"><br><br>
-        <input value="Login" onclick="bondServiceInterviewAssignmentClient.submitLoginForm();">
+        <input type="text" name="password"><br><br>
+        <input type="submit" value="Login" onclick="bondServiceInterviewAssignmentClient.submitLoginForm(event);">
     </form>
 {% endblock %}

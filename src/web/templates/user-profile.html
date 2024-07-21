@@ -1,7 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <b>User profile</b>
+    <b>User profile:</b> &nbsp;&nbsp; adminName
     <br><br><br><br>
+    Portfolio
+    <br><br>
+
+    <div class="portfolio">
+        <table>
+            <thead>
+                <tr>
+                    <th>bond issue name</th>
+                    <th>isin</th>
+                    <th>value</th>
+                    <th>coupon type</th>
+                    <th>interest rate</th>
+                    <th>coupon frequency in months</th>
+                    <th>purchase date</th>
+                    <th>maturity date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bond in bonds %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        .portfolio {display: flex; align-items: start}
+        .portfolio table {
+            table-layout: auto;
+            width: 500px;
+            background-color: lightgray;
+        }
+        .portfolio td {background-color: white}
+    </style>
 
 {% endblock %}

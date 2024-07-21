@@ -1,8 +1,18 @@
-class BondServiceInterviewAssignmentClient {
-    baseUrl = 'http://127.0.0.1:8088/api/'
+class Client {
+    basePageUrl = 'http://127.0.0.1:8088/'
+    BaseApiUrl = this.basePageUrl + 'api/'
 
-    sendRequest(endPoint, method, data, resultHandler) {
-        fetch(this.baseUrl + endPoint, {
+    pageUrls = {
+        homepage: this.basePageUrl,
+        userProfile: this.basePageUrl + 'user-profile/'
+    }
+
+    apiUrls = {
+        login: this.BaseApiUrl + 'user-login/'
+    }
+
+    sendRequest(url, method, data, resultHandler) {
+        fetch(url, {
             method: method,
             headers: {'Content-Type': 'application/json', 'X-CSRFToken': csrfToken},
             body: JSON.stringify(data),
@@ -22,14 +32,15 @@ class BondServiceInterviewAssignmentClient {
 
         function loginResultHandler(responseStatus, data) {
             if (responseStatus === 200) {
-                window.location.href = 'test';
+                localStorage.setItem('authToken', data.token);
+                window.location.href = client.pageUrls.userProfile;
             } else {
                 alert(data.error);
             }
         }
 
-        this.sendRequest('user-login/', 'POST', formData, loginResultHandler);
+        this.sendRequest(this.apiUrls.login, 'POST', formData, loginResultHandler);
     }
 };
 
-const bondServiceInterviewAssignmentClient = new BondServiceInterviewAssignmentClient();
+const client = new Client();

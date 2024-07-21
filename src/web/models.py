@@ -50,7 +50,8 @@ class BondModel(models.Model):
     owner = models.ForeignKey(
         User,
         verbose_name="Owner",
-        on_delete=models.RESTRICT
+        on_delete=models.RESTRICT,
+        related_name="bonds"
     )
 
     class Meta:

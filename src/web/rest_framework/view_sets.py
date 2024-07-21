@@ -1,9 +1,12 @@
-from django.contrib.auth.models import User
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets
 
-from web.rest_framework.serializers import UserSerializer
+from web.models import BondModel
+from web.rest_framework.serializers import BondSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
+class BondViewSet(viewsets.ModelViewSet):
+    queryset = BondModel.objects.all()
+    serializer_class = BondSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

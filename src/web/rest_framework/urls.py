@@ -1,15 +1,17 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from web.rest_framework.views import UserLoginView
-from web.rest_framework.view_sets import UserViewSet
+from web.rest_framework import views
+from web.rest_framework import view_sets
+
 
 router = routers.DefaultRouter()
-router.register(r"users", UserViewSet)
+router.register(r"bonds", view_sets.BondViewSet)
 
 app_name = "web"
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("user-login/", UserLoginView.as_view(), name="user-login"),
+    path("user-login/", views.UserLoginView.as_view(), name="user-login"),
+    path("users/<int:pk>/", views.UserDetailView.as_view(), name="user-detail"),
 ]

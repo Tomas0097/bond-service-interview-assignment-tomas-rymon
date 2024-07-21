@@ -1,8 +1,13 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.contrib.auth import authenticate
+
+from web.rest_framework.permissions import IsOwner
+from web.rest_framework.serializers import UserSerializer
 
 
 class UserLoginView(APIView):
@@ -17,3 +22,9 @@ class UserLoginView(APIView):
             return Response({'token': token.key})
         else:
             return Response({'error': 'Invalid credentials'}, status=401)
+
+
+class UserDetailView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsOwner]

@@ -7,19 +7,25 @@ class Client {
         userProfile: this.basePageUrl + 'user-profile/'
     }
     apiUrls = {
-        login: this.BaseApiUrl + 'user-login/'
+        userLogin: this.BaseApiUrl + 'user-login/',
+        userData: this.BaseApiUrl + 'user-data/'
     }
 
     sendRequest(url, method, data, successResultHandler) {
-        fetch(url, {
+        let requestOptions = {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
+                'X-CSRFToken': csrfToken,
+                'Authorization': `Token ${localStorage.getItem('authToken')}`  // Handle situation where user is not logged in --> local storage has not the token.
             },
-            body: JSON.stringify(data),
-        })
-        .then(response => {
+        }
+
+        if (method === 'POST') {
+            requestOptions.body = JSON.stringify(data);
+        }
+
+        fetch(url, requestOptions).then(response => {
             response.json().then(
                 data => {(response.status === 200) ? successResultHandler(data) : alert(data.error)}
             )
@@ -34,10 +40,17 @@ class Client {
         const inputPassword = loginForm.querySelector('input[name="password"]').value;
         const formData = {username: inputUsername, password: inputPassword};
 
-        this.sendRequest(this.apiUrls.login, 'POST', formData, (responseData) => {
+        this.sendRequest(this.apiUrls.userLogin, 'POST', formData, (responseData) => {
             localStorage.setItem('authToken', responseData.token);
             window.location.href = client.pageUrls.userProfile;
         });
+    }
+
+    showUserProfileData() {
+        this.sendRequest(this.apiUrls.userData, 'GET', {}, (responseData) => {
+            const userName = document.getElementById('user-name');
+            userName.textContent = responseData.username;
+        })
     }
 };
 

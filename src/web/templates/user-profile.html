@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <b>User profile:</b> &nbsp;&nbsp; adminName
+    <b>User profile:</b> &nbsp;&nbsp; <span id="user-name"></span>
     <br><br><br><br>
     Portfolio
     <br><br>
 
-    <div class="portfolio">
+    <div id="user-portfolio">
         <table>
             <thead>
                 <tr>
@@ -49,8 +49,8 @@
 
     <script type="text/javascript">
         window.onload = function() {
-            client.showUserData();
-            client.showDataInPortfolio();
+            client.showUserProfileData();
+            // client.showUserPortfolioData();
         };
     </script>
 

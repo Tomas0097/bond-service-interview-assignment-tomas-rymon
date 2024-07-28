@@ -8,7 +8,8 @@ class Client {
     }
     apiUrls = {
         userLogin: this.BaseApiUrl + 'user-login/',
-        userProfileData: this.BaseApiUrl + 'user-profile-data/'
+        userDetails: this.BaseApiUrl + 'user-details/',
+        userBonds: this.BaseApiUrl + 'user-bonds/',
     }
 
     sendRequest(url, method, data, successResultHandler) {
@@ -42,14 +43,33 @@ class Client {
 
         this.sendRequest(this.apiUrls.userLogin, 'POST', formData, (responseData) => {
             localStorage.setItem('authToken', responseData.token);
-            window.location.href = client.pageUrls.userProfile;
+            window.location.href = client.pageUrls.userPage;
         });
     }
 
     showUserProfileData() {
-        this.sendRequest(this.apiUrls.userProfileData, 'GET', {}, (responseData) => {
+        this.sendRequest(this.apiUrls.userDetails, 'GET', {}, (responseData) => {
             const userName = document.getElementById('user-name');
             userName.textContent = responseData.username;
+        })
+    }
+
+    showUserPortfolioData() {
+        this.sendRequest(this.apiUrls.userBonds, 'GET', {}, (responseData) => {
+            const table = document.getElementById('user-portfolio').querySelector('table');
+
+            responseData.forEach(bond => {
+                const row = table.insertRow(-1);
+
+                row.insertCell(0).textContent = bond.issue_name;
+                row.insertCell(1).textContent = bond.isin;
+                row.insertCell(2).textContent = bond.value;
+                row.insertCell(3).textContent = bond.coupon_type;
+                row.insertCell(4).textContent = bond.interest_rate;
+                row.insertCell(5).textContent = bond.coupon_frequency_in_months;
+                row.insertCell(6).textContent = bond.purchase_date;
+                row.insertCell(7).textContent = bond.maturity_date;
+            })
         })
     }
 };

@@ -19,7 +19,7 @@ class BondSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
 
     class Meta:
-        model = User
+        model = BondModel
         fields = [
             "issue_name",
             "isin",

@@ -1,4 +1,7 @@
-#user-portfolio {display: flex; align-items: start}
+#user-portfolio {
+    display: flex;
+    align-items: start;
+}
 
 #user-portfolio table {
     table-layout: auto;
@@ -6,6 +9,11 @@
     background-color: lightgray;
 }
 
-#user-portfolio th {white-space: nowrap}
+#user-portfolio th {
+    white-space: nowrap;
+    text-align: left;
+}
 
-#user-portfolio td {background-color: white}
+#user-portfolio td {
+    background-color: white;
+}

@@ -13,5 +13,5 @@ app_name = "web"
 urlpatterns = [
     path("", include(router.urls)),
     path("user-login/", views.UserLoginView.as_view(), name="user-login"),
-    path("user-profile-data/", views.UserProfileDataView.as_view(), name="user-profile-data"),
+    path("user-details/", views.UserDetailsView.as_view(), name="user-details"),
 ]

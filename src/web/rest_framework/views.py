@@ -15,13 +15,16 @@ class UserLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        user = authenticate(username=request.data["username"], password=request.data["password"])
+        user = authenticate(
+            username=request.data["username"],
+            password=request.data["password"]
+        )
 
         if user:
             token, created = Token.objects.get_or_create(user=user)
+
             return Response({"token": token.key, "user_id": user.id})
-        else:
-            return Response({"error": "Invalid credentials"}, status=401)
+        return Response({"error": "Invalid credentials"}, status=401)
 
 
 class UserDetailsView(RetrieveAPIView):

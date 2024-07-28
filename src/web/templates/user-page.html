@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <b>User profile:</b> &nbsp;&nbsp; <span id="user-name"></span>
+    <b>User profile:</b>
+    &nbsp;&nbsp;
+    <span id="user-name"></span>
+
     <br><br><br><br>
     Bond Portfolio
     <br><br>
@@ -26,8 +29,8 @@
 
     <script type="text/javascript">
         window.onload = function() {
-            client.showUserProfileData();
-            client.showUserPortfolioData();
+            client.showUserDetails();
+            client.showUserBonds();
         };
     </script>
 

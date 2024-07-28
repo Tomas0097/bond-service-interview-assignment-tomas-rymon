@@ -1,19 +1,9 @@
 class Client {
     basePageUrl = 'http://127.0.0.1:8088/'
-    BaseApiUrl = this.basePageUrl + 'api/'
+    baseApiUrl = this.basePageUrl + 'api/'
 
-    pageUrls = {
-        homepage: this.basePageUrl,
-        userPage: this.basePageUrl + 'user-page/'
-    }
-    apiUrls = {
-        userLogin: this.BaseApiUrl + 'user-login/',
-        userDetails: this.BaseApiUrl + 'user-details/',
-        userBonds: this.BaseApiUrl + 'user-bonds/',
-    }
-
-    sendRequest(url, method, data, successResultHandler) {
-        let requestOptions = {
+    sendRequest(endpoint, method, data, successResultHandler) {
+        let options = {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
@@ -23,10 +13,10 @@ class Client {
         }
 
         if (method === 'POST') {
-            requestOptions.body = JSON.stringify(data);
+            options.body = JSON.stringify(data);
         }
 
-        fetch(url, requestOptions).then(response => {
+        fetch(endpoint, options).then(response => {
             response.json().then(
                 data => {(response.status === 200) ? successResultHandler(data) : alert(data.error)}
             )
@@ -36,26 +26,32 @@ class Client {
     submitLoginForm(event) {
         event.preventDefault();
 
+        const endpoint = client.baseApiUrl + 'users/login/';
         const loginForm = document.getElementById('login-form');
         const inputUsername = loginForm.querySelector('input[name="username"]').value;
         const inputPassword = loginForm.querySelector('input[name="password"]').value;
         const formData = {username: inputUsername, password: inputPassword};
 
-        this.sendRequest(this.apiUrls.userLogin, 'POST', formData, (responseData) => {
+        this.sendRequest(endpoint, 'POST', formData, (responseData) => {
             localStorage.setItem('authToken', responseData.token);
-            window.location.href = client.pageUrls.userPage;
+            localStorage.setItem('userId', responseData.user_id);
+            window.location.href = client.basePageUrl + 'user-page/';
         });
     }
 
-    showUserProfileData() {
-        this.sendRequest(this.apiUrls.userDetails, 'GET', {}, (responseData) => {
+    showUserDetails() {
+        const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/';
+
+        this.sendRequest(endpoint, 'GET', {}, (responseData) => {
             const userName = document.getElementById('user-name');
             userName.textContent = responseData.username;
         })
     }
 
-    showUserPortfolioData() {
-        this.sendRequest(this.apiUrls.userBonds, 'GET', {}, (responseData) => {
+    showUserBonds() {
+        const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/';
+
+        this.sendRequest(endpoint, 'GET', {}, (responseData) => {
             const table = document.getElementById('user-portfolio').querySelector('table');
 
             responseData.forEach(bond => {

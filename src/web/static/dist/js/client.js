@@ -4,11 +4,11 @@ class Client {
 
     pageUrls = {
         homepage: this.basePageUrl,
-        userProfile: this.basePageUrl + 'user-profile/'
+        userPage: this.basePageUrl + 'user-page/'
     }
     apiUrls = {
         userLogin: this.BaseApiUrl + 'user-login/',
-        userData: this.BaseApiUrl + 'user-data/'
+        userProfileData: this.BaseApiUrl + 'user-profile-data/'
     }
 
     sendRequest(url, method, data, successResultHandler) {
@@ -47,7 +47,7 @@ class Client {
     }
 
     showUserProfileData() {
-        this.sendRequest(this.apiUrls.userData, 'GET', {}, (responseData) => {
+        this.sendRequest(this.apiUrls.userProfileData, 'GET', {}, (responseData) => {
             const userName = document.getElementById('user-name');
             userName.textContent = responseData.username;
         })

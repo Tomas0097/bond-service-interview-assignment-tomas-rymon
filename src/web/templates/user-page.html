@@ -3,14 +3,14 @@
 {% block content %}
     <b>User profile:</b> &nbsp;&nbsp; <span id="user-name"></span>
     <br><br><br><br>
-    Portfolio
+    Bond Portfolio
     <br><br>
 
     <div id="user-portfolio">
         <table>
             <thead>
                 <tr>
-                    <th>bond issue name</th>
+                    <th>issue name</th>
                     <th>isin</th>
                     <th>value</th>
                     <th>coupon type</th>
@@ -33,19 +33,31 @@
                         <td></td>
                     </tr>
                 {% endfor %}
+
+                <tr>
+                    <td>x</td>
+                    <td>q</td>
+                    <td>w</td>
+                    <td>e</td>
+                    <td>r</td>
+                    <td>t</td>
+                    <td>s</td>
+                    <td>u</td>
+                </tr>
+                <tr>
+                    <td>x</td>
+                    <td>q</td>
+                    <td>w</td>
+                    <td>e</td>
+                    <td>r</td>
+                    <td>t</td>
+                    <td>s</td>
+                    <td>u</td>
+                </tr>
+
             </tbody>
         </table>
     </div>
-
-    <style>
-        .portfolio {display: flex; align-items: start}
-        .portfolio table {
-            table-layout: auto;
-            width: 500px;
-            background-color: lightgray;
-        }
-        .portfolio td {background-color: white}
-    </style>
 
     <script type="text/javascript">
         window.onload = function() {

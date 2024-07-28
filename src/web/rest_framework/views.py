@@ -22,7 +22,7 @@ class UserLoginView(APIView):
             return Response({'error': 'Invalid credentials'}, status=401)
 
 
-class UserDataView(RetrieveAPIView):
+class UserProfileDataView(RetrieveAPIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)

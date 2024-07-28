@@ -11,7 +11,8 @@
         {% block content %}
         {% endblock %}
 
+        <link rel="stylesheet" type="text/css" href="{% static 'dist/css/styles.css' %}?v=1">
         <script type="text/javascript">let csrfToken = `{{ csrf_token }}`;</script>
-        <script type="text/javascript" src="{% static 'dist/js/build.js' %}?v={{ CURRENT_FRONTEND_VERSION }}"></script>
+        <script type="text/javascript" src="{% static 'dist/js/client.js' %}?v=1"></script>
     </body>
 </html>

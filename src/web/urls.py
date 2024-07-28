@@ -6,7 +6,7 @@ app_name = "web"
 
 urlpatterns = [
     path("", views.HomepageView.as_view(), name="homepage"),
-    path("user-profile/", views.UserProfileView.as_view(), name="user_profile"),
+    path("user-page/", views.UserPageView.as_view(), name="user-page"),
     path("api/", include("web.rest_framework.urls")),
 ]
 

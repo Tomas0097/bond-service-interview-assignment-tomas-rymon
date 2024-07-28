@@ -1,0 +1,11 @@
+#user-portfolio {display: flex; align-items: start}
+
+#user-portfolio table {
+    table-layout: auto;
+    width: 1000px;
+    background-color: lightgray;
+}
+
+#user-portfolio th {white-space: nowrap}
+
+#user-portfolio td {background-color: white}

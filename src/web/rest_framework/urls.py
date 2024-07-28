@@ -6,12 +6,12 @@ from web.rest_framework import view_sets
 
 
 router = routers.DefaultRouter()
-router.register(r"bonds", view_sets.BondViewSet)
+router.register(r"user-bonds", view_sets.BondViewSet)
 
 app_name = "web"
 
 urlpatterns = [
     path("", include(router.urls)),
     path("user-login/", views.UserLoginView.as_view(), name="user-login"),
-    path("user-data/", views.UserDataView.as_view(), name="user-data"),
+    path("user-profile-data/", views.UserProfileDataView.as_view(), name="user-profile-data"),
 ]

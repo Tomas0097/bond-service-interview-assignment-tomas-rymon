@@ -52,7 +52,7 @@ class Client {
         const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/';
 
         this.sendRequest(endpoint, 'GET', {}, (responseData) => {
-            const table = document.getElementById('user-portfolio').querySelector('table');
+            const table = document.getElementById('user-bond-portfolio');
 
             responseData.forEach(bond => {
                 const row = table.insertRow(-1);

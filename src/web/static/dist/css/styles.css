@@ -1,19 +1,14 @@
-#user-portfolio {
-    display: flex;
-    align-items: start;
-}
-
-#user-portfolio table {
+#user-bond-portfolio {
     table-layout: auto;
     width: 1000px;
     background-color: lightgray;
 }
 
-#user-portfolio th {
+#user-bond-portfolio th {
     white-space: nowrap;
     text-align: left;
 }
 
-#user-portfolio td {
+#user-bond-portfolio td {
     background-color: white;
 }

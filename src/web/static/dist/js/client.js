@@ -52,12 +52,19 @@ class Client {
         const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/';
 
         this.sendRequest(endpoint, 'GET', {}, (responseData) => {
-            const table = document.getElementById('user-bond-portfolio');
+            const table = document.getElementById('bond-list');
+            this.userBondsData = responseData;
 
             responseData.forEach(bond => {
-                const row = table.insertRow(-1);
+                let row = table.insertRow(-1);
+                let cellTitle = row.insertCell(0)
+                let title = document.createElement('span');
 
-                row.insertCell(0).textContent = bond.issue_name;
+                title.textContent = bond.issue_name;
+                title.classList.add('clickable');
+                title.setAttribute('onclick', `client.showUpdateBondForm(${bond.id});`);
+                cellTitle.appendChild(title);
+
                 row.insertCell(1).textContent = bond.isin;
                 row.insertCell(2).textContent = bond.value;
                 row.insertCell(3).textContent = bond.coupon_type;
@@ -67,6 +74,40 @@ class Client {
                 row.insertCell(7).textContent = bond.maturity_date;
             })
         })
+    }
+
+    showAddBondForm() {
+        const form = document.getElementById('bond-form');
+        const formTitle = document.getElementById('bond-form-title');
+        const inputs = form.querySelectorAll('td input');
+
+        const saveButton = document.getElementById('bond-form-save-button');
+        saveButton.setAttribute('value', 'Create');
+
+        inputs.forEach(input => {input.value = ''});
+        formTitle.textContent = 'Add new bond';
+        form.classList.remove('hidden');
+    }
+
+    showUpdateBondForm(bondId) {
+        const form = document.getElementById('bond-form');
+        const formTitle = document.getElementById('bond-form-title');
+
+        const saveButton = document.getElementById('bond-form-save-button');
+        saveButton.setAttribute('value', 'Update');
+
+        const bondData = this.userBondsData.find(item => item.id === bondId);
+        formTitle.textContent = `Update: ${bondData.issue_name}`;
+        form.classList.remove('hidden');
+
+        form.querySelector('#input-issue-name').value = bondData.issue_name;
+        form.querySelector('#input-isin').value = bondData.isin;
+        form.querySelector('#input-value').value = bondData.value;
+        form.querySelector('#input-coupon-type').value = bondData.coupon_type;
+        form.querySelector('#input-interest-rate').value = bondData.interest_rate;
+        form.querySelector('#input-coupon-frequency-in-months').value = bondData.coupon_frequency_in_months;
+        form.querySelector('#input-purchase-date').value = bondData.purchase_date;
+        form.querySelector('#input-maturity-date').value = bondData.maturity_date;
     }
 };
 

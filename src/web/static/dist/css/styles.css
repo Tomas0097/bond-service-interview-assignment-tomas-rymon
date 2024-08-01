@@ -1,14 +1,53 @@
-#user-bond-portfolio {
-    table-layout: auto;
-    width: 1000px;
-    background-color: lightgray;
+#portfolio {
+    margin-top: 40px;
 }
 
-#user-bond-portfolio th {
+#portfolio_action-bar {
+    margin-bottom: 10px;
+}
+
+#portfolio_data {
+    display: flex;
+    align-items: start;
+}
+
+#bond-list {
+    width: 1000px;
+}
+
+#bond-form {
+    margin-left: 100px;
+}
+
+#bond-form {
+    margin-left: 100px;
+}
+
+table {
+    background-color: lightgray;
+    table-layout: auto;
+}
+
+th {
     white-space: nowrap;
     text-align: left;
 }
 
-#user-bond-portfolio td {
+td {
     background-color: white;
+}
+
+.clickable {
+    cursor: pointer;
+    color: #0000EE;
+    text-decoration: underline;
+
+}
+
+.clickable:hover {
+    color: #551A8B;
+}
+
+.hidden {
+    display: none;
 }

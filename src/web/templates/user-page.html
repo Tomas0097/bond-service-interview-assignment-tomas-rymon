@@ -5,25 +5,85 @@
     &nbsp;&nbsp;
     <span id="user-name"></span>
 
-    <br><br><br><br>
-    Bond Portfolio
-    <br><br>
-
-    <table id="user-bond-portfolio">
-        <thead>
-            <tr>
-                <th>issue name</th>
-                <th>isin</th>
-                <th>value</th>
-                <th>coupon type</th>
-                <th>interest rate</th>
-                <th>coupon frequency in months</th>
-                <th>purchase date</th>
-                <th>maturity date</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div id="portfolio">
+        <div id="portfolio_action-bar">
+            <span>Bond Portfolio</span>
+            <button style="margin-left: 826px;" onclick="client.showAddBondForm();">Add bond</button>
+        </div>
+        <div id="portfolio_data">
+            <table id="bond-list">
+                <thead>
+                    <tr>
+                        <th>issue name</th>
+                        <th>isin</th>
+                        <th>value</th>
+                        <th>coupon type</th>
+                        <th>interest rate</th>
+                        <th>coupon frequency in months</th>
+                        <th>purchase date</th>
+                        <th>maturity date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <form id="bond-form" class="hidden">
+                <table>
+                    <thead>
+                        <tr>
+                            <th id="bond-form-title"></th>
+                            <th>
+                                <button id="bond-form-close-button"
+                                        type="button"
+                                        onclick="document.getElementById('bond-form').classList.add('hidden');"
+                                        style="float: right; margin-left: 4px;">
+                                        close
+                                </button>
+                                <input id="bond-form-save-button"
+                                       type="submit"
+                                       onclick=""
+                                       style="float: right;">
+                                </input>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>issue name</td>
+                            <td><input type="text" id="input-issue-name"></input></td>
+                        </tr>
+                        <tr>
+                            <td>isin</td>
+                            <td><input type="text" id="input-isin"></input></td>
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td><input type="number" id="input-value"></input></td>
+                        </tr>
+                        <tr>
+                            <td>coupon type</td>
+                            <td><input type="text" id="input-coupon-type"></input></td>
+                        </tr>
+                        <tr>
+                            <td>interest rate</td>
+                            <td><input type="number" step="any" id="input-interest-rate"></input></td>
+                        </tr>
+                        <tr>
+                            <td>coupon frequency in months</td>
+                            <td><input type="number" id="input-coupon-frequency-in-months"></input></td>
+                        </tr>
+                        <tr>
+                            <td>purchase date</td>
+                            <td><input type="date" id="input-purchase-date" style="float: right;"></input></td>
+                        </tr>
+                        <tr>
+                            <td>maturity date</td>
+                            <td><input type="date" id="input-maturity-date" style="float: right;"></input></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
 
     <script type="text/javascript">
         window.onload = function() {

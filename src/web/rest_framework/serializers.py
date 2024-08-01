@@ -21,6 +21,7 @@ class BondSerializer(serializers.ModelSerializer):
     class Meta:
         model = BondModel
         fields = [
+            "id",
             "issue_name",
             "isin",
             "value",

@@ -61,7 +61,15 @@
                         </tr>
                         <tr>
                             <td>coupon type</td>
-                            <td><input type="text" id="input-coupon-type"></input></td>
+                            <td>
+                                <select id="input-coupon-type">
+                                    <option value="" selected disabled></option>
+                                    <option value="Fixed Rate">Fixed Rate</option>
+                                    <option value="Floating Rate">Floating Rate</option>
+                                    <option value="Zero Coupon">Zero Coupon</option>
+                                    <option value="Step Up">Step Up</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>interest rate</td>
@@ -73,11 +81,11 @@
                         </tr>
                         <tr>
                             <td>purchase date</td>
-                            <td><input type="date" id="input-purchase-date" style="float: right;"></input></td>
+                            <td><input type="date" id="input-purchase-date"></input></td>
                         </tr>
                         <tr>
                             <td>maturity date</td>
-                            <td><input type="date" id="input-maturity-date" style="float: right;"></input></td>
+                            <td><input type="date" id="input-maturity-date"></input></td>
                         </tr>
                     </tbody>
                 </table>

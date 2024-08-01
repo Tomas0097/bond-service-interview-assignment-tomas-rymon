@@ -79,27 +79,23 @@ class Client {
     showAddBondForm() {
         const form = document.getElementById('bond-form');
         const formTitle = document.getElementById('bond-form-title');
+        const saveButton = document.getElementById('bond-form-save-button');
         const inputs = form.querySelectorAll('td input');
 
-        const saveButton = document.getElementById('bond-form-save-button');
-        saveButton.setAttribute('value', 'Create');
-
-        inputs.forEach(input => {input.value = ''});
         formTitle.textContent = 'Add new bond';
+        saveButton.setAttribute('value', 'Create');
+        inputs.forEach(input => {input.value = ''});
         form.classList.remove('hidden');
     }
 
     showUpdateBondForm(bondId) {
         const form = document.getElementById('bond-form');
         const formTitle = document.getElementById('bond-form-title');
-
         const saveButton = document.getElementById('bond-form-save-button');
-        saveButton.setAttribute('value', 'Update');
-
         const bondData = this.userBondsData.find(item => item.id === bondId);
-        formTitle.textContent = `Update: ${bondData.issue_name}`;
-        form.classList.remove('hidden');
 
+        formTitle.textContent = `Update: ${bondData.issue_name}`;
+        saveButton.setAttribute('value', 'Update');
         form.querySelector('#input-issue-name').value = bondData.issue_name;
         form.querySelector('#input-isin').value = bondData.isin;
         form.querySelector('#input-value').value = bondData.value;
@@ -108,6 +104,7 @@ class Client {
         form.querySelector('#input-coupon-frequency-in-months').value = bondData.coupon_frequency_in_months;
         form.querySelector('#input-purchase-date').value = bondData.purchase_date;
         form.querySelector('#input-maturity-date').value = bondData.maturity_date;
+        form.classList.remove('hidden');
     }
 };
 

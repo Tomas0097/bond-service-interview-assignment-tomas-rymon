@@ -12,7 +12,7 @@ class Client {
             },
         }
 
-        if (method === 'POST') {
+        if (method === 'POST' | method === 'PUT') {
             options.body = JSON.stringify(data);
         }
 
@@ -79,11 +79,13 @@ class Client {
     showAddBondForm() {
         const form = document.getElementById('bond-form');
         const formTitle = document.getElementById('bond-form-title');
-        const saveButton = document.getElementById('bond-form-save-button');
-        const inputs = form.querySelectorAll('td input');
+        const submitCreateButton = document.getElementById('bond-form-create-button');
+        const submitUpdateButton = document.getElementById('bond-form-update-button');
+        const inputs = form.querySelectorAll('td input, td select');
 
         formTitle.textContent = 'Add new bond';
-        saveButton.setAttribute('value', 'Create');
+        submitCreateButton.classList.remove('hidden');
+        submitUpdateButton.classList.add('hidden');
         inputs.forEach(input => {input.value = ''});
         form.classList.remove('hidden');
     }
@@ -91,11 +93,14 @@ class Client {
     showUpdateBondForm(bondId) {
         const form = document.getElementById('bond-form');
         const formTitle = document.getElementById('bond-form-title');
-        const saveButton = document.getElementById('bond-form-save-button');
+        const submitCreateButton = document.getElementById('bond-form-create-button');
+        const submitUpdateButton = document.getElementById('bond-form-update-button');
         const bondData = this.userBondsData.find(item => item.id === bondId);
 
         formTitle.textContent = `Update: ${bondData.issue_name}`;
-        saveButton.setAttribute('value', 'Update');
+        submitCreateButton.classList.add('hidden');
+        submitUpdateButton.classList.remove('hidden');
+        form.dataset.bondID = bondId;
         form.querySelector('#input-issue-name').value = bondData.issue_name;
         form.querySelector('#input-isin').value = bondData.isin;
         form.querySelector('#input-value').value = bondData.value;
@@ -106,6 +111,73 @@ class Client {
         form.querySelector('#input-maturity-date').value = bondData.maturity_date;
         form.classList.remove('hidden');
     }
+
+    createBond(event) {
+        event.preventDefault();
+
+        const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/';
+        const bondForm = document.getElementById('bond-form');
+
+        const inputIssueName = bondForm.querySelector('#input-issue-name').value;
+        const inputISIN = bondForm.querySelector('#input-isin').value;
+        const inputValue = bondForm.querySelector('#input-value').value;
+        const inputCouponType = bondForm.querySelector('#input-coupon-type').value;
+        const inputInterestRate = bondForm.querySelector('#input-interest-rate').value;
+        const inputCouponFrequencyInMonths = bondForm.querySelector('#input-coupon-frequency-in-months').value;
+        const inputPurchaseDate = bondForm.querySelector('#input-purchase-date').value;
+        const inputMaturityDate = bondForm.querySelector('#input-maturity-date').value;
+
+        const formData = {
+            issue_name: inputIssueName,
+            isin: inputISIN,
+            value: inputValue,
+            coupon_type: inputCouponType,
+            interest_rate: inputInterestRate,
+            coupon_frequency_in_months: inputCouponFrequencyInMonths,
+            purchase_date: inputPurchaseDate,
+            maturity_date: inputMaturityDate
+        };
+
+        this.sendRequest(endpoint, 'POST', formData, (responseData) => {
+            window.location.href = client.basePageUrl + 'user-page/';
+        });
+    }
+
+    updateBond(event) {
+        event.preventDefault();
+
+        const userId = localStorage.getItem('userId')
+        const bondId = event.target.form.dataset.bondID
+        const endpoint = this.baseApiUrl + 'users/' + userId + '/bonds/' + bondId + '/';
+        const bondForm = document.getElementById('bond-form');
+
+        const inputIssueName = bondForm.querySelector('#input-issue-name').value;
+        const inputISIN = bondForm.querySelector('#input-isin').value;
+        const inputValue = bondForm.querySelector('#input-value').value;
+        const inputCouponType = bondForm.querySelector('#input-coupon-type').value;
+        const inputInterestRate = bondForm.querySelector('#input-interest-rate').value;
+        const inputCouponFrequencyInMonths = bondForm.querySelector('#input-coupon-frequency-in-months').value;
+        const inputPurchaseDate = bondForm.querySelector('#input-purchase-date').value;
+        const inputMaturityDate = bondForm.querySelector('#input-maturity-date').value;
+
+        const formData = {
+            issue_name: inputIssueName,
+            isin: inputISIN,
+            value: inputValue,
+            coupon_type: inputCouponType,
+            interest_rate: inputInterestRate,
+            coupon_frequency_in_months: inputCouponFrequencyInMonths,
+            purchase_date: inputPurchaseDate,
+            maturity_date: inputMaturityDate
+        };
+
+        console.log(endpoint)
+
+        this.sendRequest(endpoint, 'PUT', formData, (responseData) => {
+            window.location.href = client.basePageUrl + 'user-page/';
+        });
+    }
+
 };
 
 const client = new Client();

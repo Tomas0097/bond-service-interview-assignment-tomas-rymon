@@ -17,6 +17,7 @@ services:
       DJANGO_SUPERUSER_USERNAME: "admin"
       DJANGO_SUPERUSER_PASSWORD: "1122"
       DJANGO_SUPERUSER_EMAIL: "name@gmail.com"
+      PYTHONUNBUFFERED: 1
     ports:
       - "8088:8088"
 

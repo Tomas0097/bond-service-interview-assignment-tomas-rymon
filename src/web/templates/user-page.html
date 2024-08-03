@@ -26,7 +26,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
-            <form id="bond-form" class="hidden">
+            <form id="bond-form" data-bondId="" class="hidden">
                 <table>
                     <thead>
                         <tr>
@@ -38,9 +38,18 @@
                                         style="float: right; margin-left: 4px;">
                                         close
                                 </button>
-                                <input id="bond-form-save-button"
+                                <input id="bond-form-create-button"
+                                       class="hidden"
                                        type="submit"
-                                       onclick=""
+                                       value="Create"
+                                       onclick="client.createBond(event);"
+                                       style="float: right;">
+                                </input>
+                                <input id="bond-form-update-button"
+                                       class="hidden"
+                                       type="submit"
+                                       value="Update"
+                                       onclick="client.updateBond(event);"
                                        style="float: right;">
                                 </input>
                             </th>

@@ -2,13 +2,13 @@ class Client {
     basePageUrl = 'http://127.0.0.1:8088/'
     baseApiUrl = this.basePageUrl + 'api/'
 
-    sendRequest(endpoint, method, data, successResultHandler) {
+    async sendRequest(endpoint, method, data, successResultHandler) {
         let options = {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
-                'Authorization': `Token ${localStorage.getItem('authToken')}`  // Handle situation where user is not logged in --> local storage has not the token.
+                'Authorization': `Token ${localStorage.getItem('authToken')}`
             },
         }
 
@@ -16,11 +16,26 @@ class Client {
             options.body = JSON.stringify(data);
         }
 
-        fetch(endpoint, options).then(response => {
-            response.json().then(
-                data => {(response.status === 200) ? successResultHandler(data) : alert(data.error)}
-            )
-        })
+        const response = await fetch(endpoint, options)
+        const responseData = await response.json()
+
+        function showErrors() {
+            if (response.status === 401) {
+                alert(responseData.error)
+            } else {
+                let alertMessage = ""
+                for (const [entity, errors] of Object.entries(responseData)) {
+                    alertMessage += entity + ':\n';
+                    errors.forEach((error) => {
+                        alertMessage += '-' + error + '\n';
+                    });
+                    alertMessage += "\n";
+                }
+                alert(alertMessage);
+            }
+        }
+
+        response.status === 200 ? successResultHandler(responseData) : showErrors();
     }
 
     submitLoginForm(event) {

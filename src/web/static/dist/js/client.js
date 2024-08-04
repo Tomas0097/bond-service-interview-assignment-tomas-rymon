@@ -21,12 +21,10 @@ class Client {
 
         function showErrors() {
             let alertMessage = ""
-    
+
             for (const [entity, errors] of Object.entries(responseData)) {
                 alertMessage += entity + ':\n';
-                errors.forEach((error) => {
-                    alertMessage += '- ' + error + '\n';
-                });
+                errors.forEach((error) => {alertMessage += '- ' + error + '\n'});
                 alertMessage += "\n";
             }
             alert(alertMessage);

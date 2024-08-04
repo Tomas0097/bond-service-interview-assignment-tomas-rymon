@@ -16,7 +16,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BondSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source="owner.username")
     coupon_type = serializers.SerializerMethodField()
 
     def get_coupon_type(self, obj):

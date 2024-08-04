@@ -14,5 +14,10 @@ class BondViewSet(viewsets.ModelViewSet):
         user_id = self.kwargs["user_id"]
         return self.queryset.filter(owner_id=user_id)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    def create(self, request, *args, **kwargs):
+        request.data["owner"] = request.user.id
+        return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        request.data["owner"] = request.user.id
+        return super().update(request, *args, **kwargs)

@@ -24,7 +24,7 @@ class UserLoginView(APIView):
             token, created = Token.objects.get_or_create(user=user)
 
             return Response({"token": token.key, "user_id": user.id})
-        return Response({"error": "Invalid credentials"}, status=401)
+        return Response({"login": ["Invalid credentials"]}, status=401)
 
 
 class UserDetailsView(RetrieveAPIView):
@@ -32,7 +32,7 @@ class UserDetailsView(RetrieveAPIView):
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
-            return Response({"error": "User not found"}, status=404)
+            return Response({"user": ["User not found"]}, status=404)
 
         serializer = UserSerializer(user)
         return Response(serializer.data)

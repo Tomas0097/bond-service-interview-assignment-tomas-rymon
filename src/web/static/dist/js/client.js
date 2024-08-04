@@ -20,19 +20,16 @@ class Client {
         const responseData = await response.json()
 
         function showErrors() {
-            if (response.status === 401) {
-                alert(responseData.error)
-            } else {
-                let alertMessage = ""
-                for (const [entity, errors] of Object.entries(responseData)) {
-                    alertMessage += entity + ':\n';
-                    errors.forEach((error) => {
-                        alertMessage += '-' + error + '\n';
-                    });
-                    alertMessage += "\n";
-                }
-                alert(alertMessage);
+            let alertMessage = ""
+    
+            for (const [entity, errors] of Object.entries(responseData)) {
+                alertMessage += entity + ':\n';
+                errors.forEach((error) => {
+                    alertMessage += '- ' + error + '\n';
+                });
+                alertMessage += "\n";
             }
+            alert(alertMessage);
         }
 
         response.status === 200 ? successResultHandler(responseData) : showErrors();

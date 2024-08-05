@@ -6,14 +6,9 @@ from web.rest_framework.fields import CouponTypeField
 
 
 class UserSerializer(serializers.ModelSerializer):
-    bonds = serializers.PrimaryKeyRelatedField(
-        many=True,
-        queryset=BondModel.objects.all()
-    )
-
     class Meta:
         model = User
-        fields = ["id", "username", "bonds"]
+        fields = ["id", "username"]
 
 
 class BondSerializer(serializers.ModelSerializer):

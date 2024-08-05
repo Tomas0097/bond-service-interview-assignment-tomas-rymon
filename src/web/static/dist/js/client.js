@@ -30,7 +30,7 @@ class Client {
             alert(alertMessage);
         }
 
-        response.status === 200 ? successResultHandler(responseData) : showErrors();
+        response.status.toString().startsWith('2') ? successResultHandler(responseData) : showErrors();
     }
 
     submitLoginForm(event) {

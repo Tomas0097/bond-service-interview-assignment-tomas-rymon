@@ -100,11 +100,15 @@ class Client {
         const submitCreateButton = document.getElementById('bond-form-create-button');
         const submitUpdateButton = document.getElementById('bond-form-update-button');
         const inputs = form.querySelectorAll('td input, td select');
+        const inputInterestRate = document.getElementById('input-interest-rate');
+        const inputCouponFrequencyInMonths = document.getElementById('input-coupon-frequency-in-months');
 
         formTitle.textContent = 'Add new bond';
         submitCreateButton.classList.remove('hidden');
         submitUpdateButton.classList.add('hidden');
         inputs.forEach(input => {input.value = ''});
+        inputInterestRate.value = '0.00';
+        inputCouponFrequencyInMonths.value = '0';
         form.classList.remove('hidden');
     }
 

@@ -33,10 +33,8 @@ class BondModel(models.Model):
     )
     interest_rate = DecimalField(
         verbose_name="Interest Rate",
-        blank=True,
-        null=True,
         max_digits=4,
-        decimal_places=2,
+        decimal_places=2
     )
     coupon_frequency_in_months = IntegerField(
         verbose_name="Coupon Frequency in Months"

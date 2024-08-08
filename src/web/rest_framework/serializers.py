@@ -14,8 +14,27 @@ class UserSerializer(serializers.ModelSerializer):
 class BondSerializer(serializers.ModelSerializer):
     coupon_type = CouponTypeField(BondModel.CouponType.choices)
 
-    def get_coupon_type(self, obj):
-        return obj.get_coupon_type_display()
+    def validate(self, data):
+        coupon_type = data.get('coupon_type')
+        interest_rate = data.get('interest_rate')
+        coupon_frequency_in_months = data.get('coupon_frequency_in_months')
+        purchase_date = data.get('purchase_date')
+        maturity_date = data.get('maturity_date')
+
+        if coupon_type == BondModel.CouponType.ZERO_COUPON:
+            if interest_rate:
+                raise serializers.ValidationError({
+                    'interest_rate': 'Interest rate must be zero for zero coupon bonds.'
+                })
+            if coupon_frequency_in_months:
+                raise serializers.ValidationError({
+                    'coupon_frequency_in_months': 'Coupon frequency in months must be zero for zero coupon bonds.'
+                })
+
+        if maturity_date <= purchase_date:
+            raise serializers.ValidationError("Purchase date must be earlier than Maturity date.")
+
+        return data
 
     class Meta:
         model = BondModel

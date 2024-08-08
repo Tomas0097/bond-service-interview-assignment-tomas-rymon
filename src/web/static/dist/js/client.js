@@ -63,26 +63,34 @@ class Client {
 
         this.sendRequest(endpoint, 'GET', {}, (responseData) => {
             const table = document.getElementById('bond-list');
-            this.userBondsData = responseData;
 
-            responseData.forEach(bond => {
+            if (responseData && responseData.length > 0) {
+                this.userBondsData = responseData;
+
+                responseData.forEach(bond => {
+                    let row = table.insertRow(-1);
+                    let cellTitle = row.insertCell(0)
+                    let title = document.createElement('span');
+
+                    title.textContent = bond.issue_name;
+                    title.classList.add('clickable');
+                    title.setAttribute('onclick', `client.showUpdateBondForm(${bond.id});`);
+                    cellTitle.appendChild(title);
+
+                    row.insertCell(1).textContent = bond.isin;
+                    row.insertCell(2).textContent = bond.value;
+                    row.insertCell(3).textContent = bond.coupon_type;
+                    row.insertCell(4).textContent = bond.interest_rate;
+                    row.insertCell(5).textContent = bond.coupon_frequency_in_months;
+                    row.insertCell(6).textContent = bond.purchase_date;
+                    row.insertCell(7).textContent = bond.maturity_date;
+                })
+            } else {
                 let row = table.insertRow(-1);
-                let cellTitle = row.insertCell(0)
-                let title = document.createElement('span');
-
-                title.textContent = bond.issue_name;
-                title.classList.add('clickable');
-                title.setAttribute('onclick', `client.showUpdateBondForm(${bond.id});`);
-                cellTitle.appendChild(title);
-
-                row.insertCell(1).textContent = bond.isin;
-                row.insertCell(2).textContent = bond.value;
-                row.insertCell(3).textContent = bond.coupon_type;
-                row.insertCell(4).textContent = bond.interest_rate;
-                row.insertCell(5).textContent = bond.coupon_frequency_in_months;
-                row.insertCell(6).textContent = bond.purchase_date;
-                row.insertCell(7).textContent = bond.maturity_date;
-            })
+                let cell = row.insertCell(0);
+                cell.textContent = 'no bonds';
+                cell.colSpan = 8;
+            }
         })
     }
 

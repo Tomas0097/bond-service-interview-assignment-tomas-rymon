@@ -17,9 +17,18 @@ class Client {
         }
 
         const response = await fetch(endpoint, options)
-        const responseData = await response.json()
+        const isCorrectResponse = response.status.toString().startsWith('2');
+        const isCorrectResponseWithContent = isCorrectResponse && response.headers.get('Content-Length') !== '0';
 
-        function showErrors() {
+        if (isCorrectResponseWithContent) {
+            const responseData = await response.json();
+            successResultHandler(responseData);
+
+        } else if (isCorrectResponse) {
+            successResultHandler();
+
+        } else {
+            const responseData = await response.json();
             let alertMessage = ""
 
             for (const [entity, errors] of Object.entries(responseData)) {
@@ -29,8 +38,6 @@ class Client {
             }
             alert(alertMessage);
         }
-
-        response.status.toString().startsWith('2') ? successResultHandler(responseData) : showErrors();
     }
 
     submitLoginForm(event) {
@@ -77,6 +84,7 @@ class Client {
                     title.setAttribute('onclick', `client.showUpdateBondForm(${bond.id});`);
                     cellTitle.appendChild(title);
 
+                    row.setAttribute('data-bond-id', bond.id);
                     row.insertCell(1).textContent = bond.isin;
                     row.insertCell(2).textContent = bond.value;
                     row.insertCell(3).textContent = bond.coupon_type;
@@ -84,6 +92,16 @@ class Client {
                     row.insertCell(5).textContent = bond.coupon_frequency_in_months;
                     row.insertCell(6).textContent = bond.purchase_date;
                     row.insertCell(7).textContent = bond.maturity_date;
+
+                    let removeButton = document.createElement('button');
+                    let removeCell = row.insertCell(8)
+                    removeButton.classList.add('remove-button');
+                    removeButton.title = 'remove the bond';
+                    removeButton.innerHTML = '&times;';
+                    // removeButton.setAttribute('onclick', `client.removeBond(${bond.id});`);
+                    removeButton.onclick = () => client.removeBond(bond.id, row);
+                    removeCell.classList.add('remove-cell');
+                    removeCell.appendChild(removeButton);
                 })
             } else {
                 let row = table.insertRow(-1);
@@ -193,10 +211,24 @@ class Client {
             maturity_date: inputMaturityDate
         };
 
-        console.log(endpoint)
-
         this.sendRequest(endpoint, 'PUT', formData, (responseData) => {
             window.location.href = client.basePageUrl + 'user-page/';
+        });
+    }
+
+    removeBond(bondId, row) {
+        const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/' + bondId + '/';
+
+        this.sendRequest(endpoint, 'DELETE', {}, () => {
+            row.remove();
+            const table = document.getElementById('bond-list');
+            const tbody = table.querySelector('tbody');
+            if (tbody.children.length === 0) {
+                let row = table.insertRow(-1);
+                let cell = row.insertCell(0);
+                cell.textContent = 'no bonds';
+                cell.colSpan = 8;
+            }
         });
     }
 

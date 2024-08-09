@@ -48,6 +48,25 @@ td {
     color: #551A8B;
 }
 
+.remove-button {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #0000EE;
+    padding: 0;
+}
+
+.remove-button:hover {
+    color: #551A8B;
+}
+
+.remove-cell {
+    text-align: center;
+    vertical-align: middle;
+    padding: 1px;
+}
+
 .hidden {
     display: none;
 }

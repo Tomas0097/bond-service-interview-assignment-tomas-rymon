@@ -69,13 +69,13 @@ class Client {
         const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/';
 
         this.sendRequest(endpoint, 'GET', {}, (responseData) => {
-            const table = document.getElementById('bond-list');
+            const tBody = document.getElementById('bond-list').querySelector('tbody');
 
             if (responseData && responseData.length > 0) {
                 this.userBondsData = responseData;
 
                 responseData.forEach(bond => {
-                    let row = table.insertRow(-1);
+                    let row = tBody.insertRow(-1);
                     let cellTitle = row.insertCell(0)
                     let title = document.createElement('span');
 
@@ -98,17 +98,27 @@ class Client {
                     removeButton.classList.add('remove-button');
                     removeButton.title = 'remove the bond';
                     removeButton.innerHTML = '&times;';
-                    // removeButton.setAttribute('onclick', `client.removeBond(${bond.id});`);
                     removeButton.onclick = () => client.removeBond(bond.id, row);
                     removeCell.classList.add('remove-cell');
                     removeCell.appendChild(removeButton);
                 })
             } else {
-                let row = table.insertRow(-1);
+                let row = tBody.insertRow(-1);
                 let cell = row.insertCell(0);
                 cell.textContent = 'no bonds';
                 cell.colSpan = 8;
             }
+        })
+    }
+
+    showUserBondsSummary() {
+        const endpoint = this.baseApiUrl + 'users/' + localStorage.getItem('userId') + '/bonds/summary/';
+
+        this.sendRequest(endpoint, 'GET', {}, (responseData) => {
+            const bondSummaryListItems = document.querySelectorAll('#bond-summary-list li');
+            bondSummaryListItems[0].querySelector('span').textContent = responseData.total_portfolio_value;
+            bondSummaryListItems[1].querySelector('span').textContent = responseData.average_interest_rate;
+            bondSummaryListItems[2].querySelector('span').textContent = responseData.next_maturing_bond;
         })
     }
 
@@ -229,6 +239,7 @@ class Client {
                 cell.textContent = 'no bonds';
                 cell.colSpan = 8;
             }
+            this.showUserBondsSummary();
         });
     }
 

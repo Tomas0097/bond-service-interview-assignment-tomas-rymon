@@ -1,8 +1,13 @@
+#user-name {
+    margin-left: 10px;
+}
+
 #portfolio {
     margin-top: 40px;
 }
 
 #portfolio_action-bar {
+    margin-top: -24px;
     margin-bottom: 10px;
 }
 

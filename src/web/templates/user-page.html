@@ -2,13 +2,17 @@
 
 {% block content %}
     <b>User profile:</b>
-    &nbsp;&nbsp;
     <span id="user-name"></span>
 
     <div id="portfolio">
+        <b>Bond Portfolio</b>
+        <ul id="bond-summary-list">
+            <li>total portfolio value: &nbsp;&nbsp;&nbsp;<span>None</span></li>
+            <li>average interest rate: &nbsp;&nbsp;&nbsp;<span>None</span></li>
+            <li>next maturing bond: &nbsp;&nbsp;&nbsp;&nbsp;<span>None</span></li>
+        </ul>
         <div id="portfolio_action-bar">
-            <span>Bond Portfolio</span>
-            <button style="margin-left: 826px;" onclick="client.showAddBondForm();">Add bond</button>
+            <button style="margin-left: 926px;" onclick="client.showAddBondForm();">Add bond</button>
         </div>
         <div id="portfolio_data">
             <table id="bond-list">
@@ -104,6 +108,7 @@
         window.onload = function() {
             client.showUserDetails();
             client.showUserBonds();
+            client.showUserBondsSummary();
         };
     </script>
 

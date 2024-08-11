@@ -11,5 +11,6 @@ bonds_router.register(r"bonds", view_sets.BondViewSet)
 urlpatterns = [
     path("users/login/", views.UserLoginView.as_view(), name="user-login"),
     path("users/<int:user_id>/", views.UserDetailsView.as_view(), name="user-details"),
+    path("users/<int:user_id>/bonds/summary/", views.UserBondsSummaryView.as_view(), name="user-bonds-summary"),
     path("users/<int:user_id>/", include(bonds_router.urls), name="user-bonds"),
 ]

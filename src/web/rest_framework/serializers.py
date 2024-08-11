@@ -24,11 +24,20 @@ class BondSerializer(serializers.ModelSerializer):
         if coupon_type == BondModel.CouponType.ZERO_COUPON:
             if interest_rate:
                 raise serializers.ValidationError({
-                    'interest_rate': 'Interest rate must be zero for zero coupon bonds.'
+                    'interest_rate': 'Interest rate must be zero for zero coupon bond.'
                 })
             if coupon_frequency_in_months:
                 raise serializers.ValidationError({
-                    'coupon_frequency_in_months': 'Coupon frequency in months must be zero for zero coupon bonds.'
+                    'coupon_frequency_in_months': 'Coupon frequency in months must be zero for zero coupon bond.'
+                })
+        else:
+            if not interest_rate:
+                raise serializers.ValidationError({
+                    'interest_rate': 'Interest rate is required for bond with coupons.'
+                })
+            if not coupon_frequency_in_months:
+                raise serializers.ValidationError({
+                    'coupon_frequency_in_months': 'Coupon frequency in months is required for bond with coupons.'
                 })
 
         if maturity_date <= purchase_date:

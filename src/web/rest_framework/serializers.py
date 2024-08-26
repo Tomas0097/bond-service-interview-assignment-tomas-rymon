@@ -15,13 +15,25 @@ class UserSerializer(serializers.ModelSerializer):
 class BondSerializer(serializers.ModelSerializer):
     coupon_type = CouponTypeField(BondModel.CouponType.choices)
 
+    def validate_isin(self, value):
+        # Validate the ISIN by calling central securities depository API
+        response = requests.get(f"https://www.cdcp.cz/isbpublicjson/api/VydaneISINy?isin={value}")
+
+        if response.status_code == 200:
+            return value
+        elif response.status_code == 400:
+            raise serializers.ValidationError("The ISIN is not valid by the central securities depository.")
+        raise serializers.ValidationError("Validation of the ISIN has failed.")
+
     def validate(self, data):
-        isin = data.get("isin")
+        purchase_date = data.get("purchase_date")
+        maturity_date = data.get("maturity_date")
         coupon_type = data.get("coupon_type")
         interest_rate = data.get("interest_rate")
         coupon_frequency_in_months = data.get("coupon_frequency_in_months")
-        purchase_date = data.get("purchase_date")
-        maturity_date = data.get("maturity_date")
+
+        if maturity_date <= purchase_date:
+            raise serializers.ValidationError("Purchase date must be earlier than Maturity date.")
 
         if coupon_type == BondModel.CouponType.ZERO_COUPON:
             if interest_rate:
@@ -42,24 +54,8 @@ class BondSerializer(serializers.ModelSerializer):
                     "coupon_frequency_in_months": "Coupon frequency in months is required for bond with coupons."
                 })
 
-        if maturity_date <= purchase_date:
-            raise serializers.ValidationError("Purchase date must be earlier than Maturity date.")
-
-        # Check if the ISIN is valid by calling central securities depository API
-        response = requests.get(f"https://www.cdcp.cz/isbpublicjson/api/VydaneISINy?isin={isin}")
-
-        if response.status_code == 200:
-            pass
-        elif response.status_code == 400:
-            raise serializers.ValidationError({
-                "isin": "The ISIN is not valid by the central securities depository."
-            })
-        else:
-            raise serializers.ValidationError({
-                "isin": "The central securities depository failed with validating the ISIN."
-            })
-
         return data
+
 
     class Meta:
         model = BondModel

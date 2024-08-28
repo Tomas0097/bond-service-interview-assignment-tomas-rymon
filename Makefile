@@ -29,7 +29,7 @@ app_bash:
 	docker exec -it bond-service-interview-assignment-app bash
 
 test:
-	$(manage_command) test
+	$(manage_command) test /opt/bond-service-interview-assignment/src/web/
 
 manage:
 	$(manage_command) $(command)

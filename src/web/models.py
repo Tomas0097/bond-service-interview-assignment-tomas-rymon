@@ -4,7 +4,7 @@ from django.db.models.fields import (
     CharField,
     DateField,
     DecimalField,
-    IntegerField
+    PositiveIntegerField
 )
 
 
@@ -23,7 +23,7 @@ class BondModel(models.Model):
         verbose_name="ISIN",
         max_length=255
     )
-    value = IntegerField(
+    value = PositiveIntegerField(
         verbose_name="Value"
     )
     coupon_type = CharField(
@@ -36,7 +36,7 @@ class BondModel(models.Model):
         max_digits=4,
         decimal_places=2
     )
-    coupon_frequency_in_months = IntegerField(
+    coupon_frequency_in_months = PositiveIntegerField(
         verbose_name="Coupon Frequency in Months"
     )
     purchase_date = DateField(

@@ -141,41 +141,74 @@ class BondViewSetTest(TestCase):
         self.bond.refresh_from_db()
         self.assertEqual(self.bond.value, 3000)
 
+    def test_remove_bond(self):
+        response = self.client.delete(f"/api/users/{self.user.id}/bonds/{self.bond.id}/", format="json")
+        self.assertEqual(response.status_code, 204)
+        self.assertRaises(BondModel.DoesNotExist, BondModel.objects.get, id=self.bond.id)
 
-# class BondSerializerTest(TestCase):
-#     def setUp(self):
-#         self.user = User.objects.create_user(username="testuser", password="testpassword")
-#         self.bond = BondModel.objects.create(
-#             issue_name="Test bond 1",
-#             isin="CZ0003551251",
-#             value=1000,
-#             coupon_type=BondModel.CouponType.FIXED_RATE,
-#             interest_rate=5.0,
-#             coupon_frequency_in_months=6,
-#             purchase_date="2024-01-01",
-#             maturity_date="2025-01-01",
-#             owner=self.user,
-#         )
 
-#     def test_validate_isin_success(self):
-#         BondSerializer().validate_isin("CZ0003551251")
-#         self.assertTrue(serializer.is_valid())
+class BondSerializerTest(TestCase):
+    def test_validate_isin_success(self):
+        valid_isin = "CZ0003551251"
+        self.assertTrue(BondSerializer().validate_isin(valid_isin), valid_isin)
 
-#     def test_validate_isin_failure(self):
-#         data = {
-#             "isin": "invalid_isin",
-#             # other required fields
-#         }
-#         serializer = BondSerializer(data=data)
-#         with self.assertRaises(ValidationError):
-#             serializer.is_valid(raise_exception=True)
+    def test_validate_isin_failure(self):
+        self.assertRaises(ValidationError, BondSerializer().validate_isin, "invalid_isin")
 
-#     def test_validate_dates_failure(self):
-#         data = {
-#             "purchase_date": "2025-01-01",
-#             "maturity_date": "2024-01-01",
-#             # other required fields
-#         }
-#         serializer = BondSerializer(data=data)
-#         with self.assertRaises(ValidationError):
-#             serializer.is_valid(raise_exception=True)
+    def test_validate_dates_success(self):
+        purchase_date = "2024-01-01"
+        maturity_date = "2025-01-01"
+        self.assertIsNone(BondSerializer._validate_dates(purchase_date, maturity_date))
+
+    def test_validate_dates_failure(self):
+        purchase_date = "2025-01-01"
+        maturity_date = "2024-01-01"
+        self.assertRaises(ValidationError, BondSerializer._validate_dates, purchase_date, maturity_date)
+
+    def test_validate_coupons_success(self):
+        coupon_type = BondModel.CouponType.FIXED_RATE
+        interest_rate = 5.0
+        coupon_frequency_in_months = 6
+
+        zero_coupon_type = BondModel.CouponType.ZERO_COUPON
+        zero_interest_rate = 0.0
+        zero_coupon_frequency_in_months = 0
+
+        self.assertIsNone(
+            BondSerializer._validate_coupons(
+                coupon_type,
+                interest_rate,
+                coupon_frequency_in_months
+            )
+        )
+        self.assertIsNone(
+            BondSerializer._validate_coupons(
+                zero_coupon_type,
+                zero_interest_rate,
+                zero_coupon_frequency_in_months
+            )
+        )
+
+    def test_validate_coupons_failure(self):
+        coupon_type = BondModel.CouponType.FIXED_RATE
+        interest_rate = 5.0
+        coupon_frequency_in_months = 6
+
+        zero_coupon_type = BondModel.CouponType.ZERO_COUPON
+        zero_interest_rate = 0.0
+        zero_coupon_frequency_in_months = 0
+
+        self.assertRaises(
+            ValidationError,
+            BondSerializer._validate_coupons,
+            coupon_type,
+            zero_interest_rate,
+            zero_coupon_frequency_in_months
+        )
+        self.assertRaises(
+            ValidationError,
+            BondSerializer._validate_coupons,
+            zero_coupon_type,
+            interest_rate,
+            coupon_frequency_in_months
+        )

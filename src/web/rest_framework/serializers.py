@@ -32,9 +32,18 @@ class BondSerializer(serializers.ModelSerializer):
         interest_rate = data.get("interest_rate")
         coupon_frequency_in_months = data.get("coupon_frequency_in_months")
 
+        self._validate_dates(purchase_date, maturity_date)
+        self._validate_coupons(coupon_type, interest_rate, coupon_frequency_in_months)
+
+        return data
+
+    @staticmethod
+    def _validate_dates(purchase_date, maturity_date):
         if maturity_date <= purchase_date:
             raise serializers.ValidationError("Purchase date must be earlier than Maturity date.")
 
+    @staticmethod
+    def _validate_coupons(coupon_type, interest_rate, coupon_frequency_in_months):
         if coupon_type == BondModel.CouponType.ZERO_COUPON:
             if interest_rate:
                 raise serializers.ValidationError({
@@ -53,9 +62,6 @@ class BondSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({
                     "coupon_frequency_in_months": "Coupon frequency in months is required for bond with coupons."
                 })
-
-        return data
-
 
     class Meta:
         model = BondModel

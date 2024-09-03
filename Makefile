@@ -7,6 +7,17 @@ manage_command = docker exec -it bond-service-interview-assignment-app /manage.s
 default:
 	@echo "Please specify target. Check contents of Makefile to see list of available targets."
 
+make setup_project:
+	docker build -t bond-service-interview-assignment-app -f docker/app/Dockerfile .
+	docker build -t bond-service-interview-assignment-db -f docker/db/Dockerfile .
+	cd docker/ && docker-compose up -d db
+	cd docker/ && docker-compose up -d app
+	make prepare_database
+	sleep 20
+	make migrate
+	make create_default_superuser
+	make down
+
 prepare_database:
 	docker exec -it bond-service-interview-assignment-db /db-init.sh
 

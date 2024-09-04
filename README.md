@@ -1,13 +1,13 @@
 ## Bond Service Interview Assignment
 
-Tento návod je napsaný pro uživatele používající linuxovou distribuci ideálně *Debian/Ubuntu*
+Tento návod je napsaný pro uživatele používající linuxovou distribuci ideálně **Debian/Ubuntu**
 
 ### požadavky
 
 #### Make
-V rámci projektu se používá *Make* ke snadnému spuštění některých nejčastěji opakovaných příkazů, které jsou předdefinované v souboru Makefile.
+V rámci projektu se používá **Make** ke snadnému spuštění některých nejčastěji opakovaných příkazů, které jsou předdefinované v souboru Makefile.
 
-*Make* se může nainstalovat pomocí `sudo apt install make`
+**Make** se může nainstalovat pomocí `sudo apt install make`
 
 #### Docker + Docker Compose
 Projekt je kontejnerizován pomocí Dockeru a proto je potřeba ho mít nainstalovaný. Je potřeba mít nainstalovaný i Docker Compose.

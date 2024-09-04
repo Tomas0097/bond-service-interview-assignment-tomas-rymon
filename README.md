@@ -5,7 +5,7 @@ Tento návod je napsaný pro uživatele používající linuxovou distribuci ide
 ### požadavky
 
 #### Make
-V rámci projektu se používá **Make** ke snadnému spuštění některých nejčastěji opakovaných příkazů, které jsou předdefinované v souboru Makefile.
+V rámci projektu se používá [Make](https://www.gnu.org/software/make/) ke snadnému spuštění některých nejčastěji opakovaných příkazů, které jsou předdefinované v souboru Makefile.
 
 **Make** se může nainstalovat pomocí `sudo apt install make`
 

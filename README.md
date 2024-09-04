@@ -23,7 +23,7 @@ Projekt se spouští příkazem `make up` (nastartuje Docker kontejnery). Webov�
 Projekt se vypína příkazem `make down` (zastaví Docker kontejnery)
 
 ## API dokumentace
-`API dokumentace je dostupná na adrese http://127.0.0.1:8088/api/schema/swagger-ui/
+API dokumentace je dostupná na adrese http://127.0.0.1:8088/api/schema/swagger-ui/
 
 ## spuštění testů
 `make test`

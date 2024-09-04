@@ -5,7 +5,7 @@ Tento návod je určen pro uživatele používající linuxovou distribuci, ide�
 ## požadavky
 
 ### Make
-V rámci projektu se využívá nástroj [Make](https://www.gnu.org/software/make/), který usnadňuje spouštění opakovaných příkazů. Jsou pro to definovaný targety v souboru *Makefile*.
+V rámci projektu se využívá nástroj [Make](https://www.gnu.org/software/make/), který zjednodušuje spouštění opakujících se příkazů prostřednictvím předdefinovaných cílů (targetů) v souboru *Makefile*.
 
 **Make** lze nainstalovat pomocí příkazu: `sudo apt install make`
 

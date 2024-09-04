@@ -22,7 +22,7 @@ Při prvním spuštění je třeba použít následující příkaz `make setup_
 
 Projekt se spouští příkazem `make up` (nastartuje Docker kontejnery). Webová aplikace bude poté dostupná na adrese http://127.0.0.1:8088/
 
-Přihlašující údaje:
+Přihlašovací údaje:
 - jméno: admin
 - heslo: 1122
 

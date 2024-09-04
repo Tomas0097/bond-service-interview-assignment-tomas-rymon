@@ -16,6 +16,8 @@ Projekt je kontejnerizován pomocí Dockeru, proto je potřeba mít nainstalovan
 - instalace Docker Compose https://docs.docker.com/compose/install/
 
 ## spuštění projektu
+Následující **Make** příkazy je potřeba spouštět v kořenové složce projektu.
+
 Při prvním spuštění je třeba použít následující příkaz `make setup_project`, který buildne Docker images a inicializuje nezbytné nastavení.
 
 Projekt se spouští příkazem `make up` (nastartuje Docker kontejnery). Webová aplikace bude poté dostupná na adrese http://127.0.0.1:8088/

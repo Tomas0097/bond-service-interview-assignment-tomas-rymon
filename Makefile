@@ -13,11 +13,12 @@ make setup_project:
 	cd docker/ && docker-compose up -d db
 	cd docker/ && docker-compose up -d app
 	make prepare_database
-	echo "Waiting for database in db container to be connectible..."
+	@echo "Waiting 20 seconds for database in db container to be connectible..."
 	sleep 20
 	make migrate
 	make create_default_superuser
 	make down
+	@echo "The project setup has been completed successfully. Now you can run 'make up' to start the project."
 
 prepare_database:
 	docker exec -it bond-service-interview-assignment-db /db-init.sh

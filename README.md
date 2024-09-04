@@ -1,29 +1,29 @@
 # Bond Service Interview Assignment
 
-Tento návod je napsaný pro uživatele používající linuxovou distribuci ideálně **Debian/Ubuntu**
+Tento návod je určen pro uživatele používající linuxovou distribuci, ideálně **Debian/Ubuntu**.
 
 ## požadavky
 
 ### Make
-V rámci projektu se používá [Make](https://www.gnu.org/software/make/) ke snadnému spuštění některých nejčastěji opakovaných příkazů, které jsou předdefinované v souboru Makefile.
+V rámci projektu se využívá nástroj [Make](https://www.gnu.org/software/make/), který usnadňuje spouštění opakovaných příkazů. Jsou pro to definovaný targety v souboru *Makefile*.
 
-**Make** se může nainstalovat pomocí `sudo apt install make`
+**Make** lze nainstalovat pomocí příkazu: `sudo apt install make`
 
 ### Docker + Docker Compose
-Projekt je kontejnerizován pomocí Dockeru a proto je potřeba ho mít nainstalovaný. Je potřeba mít nainstalovaný i Docker Compose.
+Projekt je kontejnerizován pomocí Dockeru, proto je potřeba mít nainstalovaný Docker i Docker Compose.
 
 - instalace Dockeru https://docs.docker.com/engine/install/
 - instalace Docker Compose https://docs.docker.com/compose/install/
 
 ## spuštění projektu
-Při prvním spuštění je potřeba spustit příkaz `make setup_project` což buildne Docker images a inicializuje nutný prvotní nastavení.
+Při prvním spuštění je třeba použít následující příkaz `make setup_project`, který buildne Docker images a inicializuje nezbytné nastavení.
 
-Projekt se pak spouští příkazem `make up` (nastartuje Docker kontejnery). Následně je možné vstopit do webové applikace na adrese http://127.0.0.1:8088/
+Projekt se spouští příkazem `make up` (nastartuje Docker kontejnery). Webová aplikace bude poté dostupná na adrese http://127.0.0.1:8088/
 
-Projekt se vypína příkazem `make down` (stopne Docker kontejnery)
+Projekt se vypína příkazem `make down` (zastaví Docker kontejnery)
 
 ## API dokumentace
-`API dokumentace je přístupná na adrese http://127.0.0.1:8088/api/schema/swagger-ui/
+`API dokumentace je dostupná na adrese http://127.0.0.1:8088/api/schema/swagger-ui/
 
 ## spuštění testů
 `make test`

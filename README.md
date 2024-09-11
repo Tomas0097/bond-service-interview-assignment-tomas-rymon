@@ -13,7 +13,7 @@ V rámci projektu se využívá nástroj [Make](https://www.gnu.org/software/mak
 Projekt je kontejnerizován pomocí Dockeru, proto je potřeba mít nainstalovaný Docker i Docker Compose.
 
 - instalace Dockeru https://docs.docker.com/engine/install/
-- instalace Docker Compose https://docs.docker.com/compose/install/
+- instalace Docker Compose (standalone version: docker-compose) https://docs.docker.com/compose/install/standalone/
 
 ## spuštění projektu
 Následující **Make** příkazy je potřeba spouštět v kořenové složce projektu.
